@@ -26,3 +26,6 @@ jobs:
 
       - name: Build backend
         run: npm run build --workspace @dtc/backend -- --lint false
+
+      - name: Build storefront
+        run: npm run build --workspace @dtc/storefront

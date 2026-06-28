@@ -1,0 +1,115 @@
+.page {
+  --background: #101727;
+  --foreground: #182133;
+  --text-primary: #f5f8ff;
+  --text-secondary: #c8d0e7;
+  --button-primary: #2f6fff;
+  --button-primary-hover: #2557c9;
+  --button-secondary-hover: #24314a;
+  --button-secondary-border: #314361;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-geist-sans);
+  background-color: var(--background);
+}
+
+.main {
+  display: flex;
+  width: min(720px, 92vw);
+  flex-direction: column;
+  align-items: stretch;
+  gap: 32px;
+  background-color: var(--foreground);
+  border: 1px solid #25344f;
+  border-radius: 20px;
+  padding: 48px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.intro h1 {
+  font-size: 36px;
+  line-height: 42px;
+  letter-spacing: -1px;
+  color: var(--text-primary);
+}
+
+.intro p {
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--text-secondary);
+}
+
+.intro code {
+  width: 100%;
+  display: inline-block;
+  border: 1px solid #2d3f5d;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #0f1728;
+  color: #8bb1ff;
+  word-break: break-word;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.links a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 128px;
+  border: 1px solid transparent;
+  transition: 0.2s;
+  cursor: pointer;
+  width: fit-content;
+  font-weight: 500;
+}
+
+a.primary {
+  background: var(--button-primary);
+  color: #fff;
+}
+
+a.secondary {
+  border-color: var(--button-secondary-border);
+  color: #d9e2ff;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  a.primary:hover {
+    background: var(--button-primary-hover);
+    border-color: transparent;
+  }
+
+  a.secondary:hover {
+    background: var(--button-secondary-hover);
+    border-color: transparent;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    padding: 28px;
+  }
+
+  .intro h1 {
+    font-size: 30px;
+    line-height: 36px;
+  }
+}
