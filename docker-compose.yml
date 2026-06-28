@@ -45,5 +45,18 @@ services:
     command: >
       sh -c "cd apps/backend && npx medusa db:migrate && npm run start"
 
+  storefront:
+    build:
+      context: .
+      dockerfile: Dockerfile.storefront
+    container_name: medusa-storefront
+    depends_on:
+      backend:
+        condition: service_started
+    environment:
+      NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://backend:9000
+    ports:
+      - "8000:8000"
+
 volumes:
   postgres-data:

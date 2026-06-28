@@ -14,7 +14,10 @@
     "backend:seed": "turbo seed --filter=@dtc/backend",
     "backend:dev": "turbo dev --filter=@dtc/backend",
     "storefront:dev": "turbo dev --filter=@dtc/storefront",
-    "release": "semantic-release"
+    "storefront:build": "turbo build --filter=@dtc/storefront",
+    "release": "semantic-release",
+    "release:backend": "semantic-release --extends ./.releaserc.json",
+    "release:storefront": "semantic-release --extends ./.releaserc.storefront.json"
   },
   "pnpm": {
     "overrides": {
