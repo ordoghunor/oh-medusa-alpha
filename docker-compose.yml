@@ -25,7 +25,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: Dockerfile.backend.dev
     container_name: medusa-backend
     depends_on:
       postgres:
@@ -42,13 +42,17 @@ services:
       COOKIE_SECRET: supersecret
     ports:
       - "9000:9000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/backend/node_modules
     command: >
-      sh -c "cd apps/backend && npx medusa db:migrate && npm run start"
+      sh -c "cd apps/backend && npx medusa db:migrate && npm run backend:dev"
 
   storefront:
     build:
       context: .
-      dockerfile: Dockerfile.storefront
+      dockerfile: Dockerfile.storefront.dev
     container_name: medusa-storefront
     depends_on:
       backend:
@@ -57,6 +61,11 @@ services:
       NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://backend:9000
     ports:
       - "8000:8000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/storefront/node_modules
+      - /app/apps/storefront/.next
 
 volumes:
   postgres-data:

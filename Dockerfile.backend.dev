@@ -1,0 +1,24 @@
+FROM node:20-bookworm-slim
+
+WORKDIR /app
+
+# Install python and build essentials in case Medusa or node-gyp native modules need them
+RUN apt-get update && apt-get install -y \
+  python3 \
+  build-essential \
+  && rm -rf /var/lib/apt/lists/*
+
+# Copy only the files needed for dependency installation to utilize Docker layer caching
+COPY package.json package-lock.json .npmrc turbo.json ./
+COPY apps/backend/package.json apps/backend/package.json
+COPY apps/storefront/package.json apps/storefront/package.json
+
+# Install ALL dependencies (including dev dependencies needed for hot-reloading)
+RUN npm install
+
+# Expose the Medusa port
+EXPOSE 9000
+
+# Run the dev command (Make sure 'dev' is defined in your backend package.json, 
+# usually it maps to `medusa develop`)
+CMD ["npm", "run", "dev", "--workspace", "@dtc/backend"]

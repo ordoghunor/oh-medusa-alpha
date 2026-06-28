@@ -1,0 +1,23 @@
+FROM node:20-bookworm-slim
+
+WORKDIR /app
+
+# Install basic build tools just in case any frontend dependencies require node-gyp
+RUN apt-get update && apt-get install -y \
+  python3 \
+  build-essential \
+  && rm -rf /var/lib/apt/lists/*
+
+# Copy dependency files first to leverage Docker layer caching
+COPY package.json package-lock.json .npmrc turbo.json ./
+COPY apps/backend/package.json apps/backend/package.json
+COPY apps/storefront/package.json apps/storefront/package.json
+
+# Install ALL dependencies (crucial for local dev so you have webpack/turborepo/next dev servers)
+RUN npm install
+
+# Expose the storefront port
+EXPOSE 8000
+
+# Run the dev command (assuming Next.js or similar standard dev script)
+CMD ["npm", "run", "dev", "--workspace", "@dtc/storefront"]
