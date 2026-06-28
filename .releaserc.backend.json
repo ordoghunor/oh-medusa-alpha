@@ -1,6 +1,6 @@
 {
   "branches": ["main"],
-  "tagFormat": "medusa-${version}",
+  "tagFormat": "backend-${version}",
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
